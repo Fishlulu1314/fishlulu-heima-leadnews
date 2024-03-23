@@ -1,2 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.heima.common.exception.ExceptionCatch
+  com.heima.common.exception.ExceptionCatch,\
+    com.heima.common.baiduyun.config.AipContentCencorConfig,\
+  com.heima.common.baiduyun.GreenImageScan,\
+  com.heima.common.baiduyun.GreenTextScan,\
+    com.heima.common.tess4j.Tess4jClient

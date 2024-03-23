@@ -22,6 +22,7 @@ import com.heima.utils.thread.WmThreadLocalUtil;
 import com.heima.wemedia.mapper.WmMaterialMapper;
 import com.heima.wemedia.mapper.WmNewsMapper;
 import com.heima.wemedia.mapper.WmNewsMaterialMapper;
+import com.heima.wemedia.service.WmNewsAutoScanService;
 import com.heima.wemedia.service.WmNewsService;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,6 +44,8 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
     private WmNewsMaterialMapper wmNewsMaterialMapper;
     @Autowired
     private WmMaterialMapper wmMaterialMapper;
+    @Autowired
+    private WmNewsAutoScanService wmNewsAutoScanService;
 
     /**
      * 条件查询文章列表
@@ -122,6 +125,8 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
         //保存文章封面图片与素材的关系
         //如果当前封面类型为自动,需要匹配封面图片(到内容图片中找)
         saveRelativeCover(dto,wmNews,materials);
+        //调用自动审核服务
+        wmNewsAutoScanService.autoScanWmNews(wmNews.getId());
         //返回结果
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
     }
